@@ -1,0 +1,5 @@
+docs/
+storage-db/
+app.log
+*.log
+__pycache__/
