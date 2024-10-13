@@ -13,6 +13,14 @@ from config import COLLECTION_NAME, PERSIST_DIRECTORY
 from logging_config import logger
 from testcase import extract_case_metadata
 import re
+from streamlit_pdf_viewer import pdf_viewer
+
+
+def show_pdfs(filename, pages):
+
+    if os.path.exists(filename):
+        pdf_viewer(input=filename, width=700, height=1000, pages_to_render=[pages], scroll_to_page=pages)
+
 
 def main():
     # Set app title and sidebar menu
@@ -77,9 +85,15 @@ def main():
         st.write(summarized_result['final_summary'])
         st.write("\n--- Sources ---")
         for item in summarized_result['structured_context']:
-            st.write(f"File: {item['file_name']}, Page: {item['page_number']}")
-        st.write("\n--- Additional Info ---")
-        st.write(f"Case Metadata: {case_metadata}")
+         
+         for index, item in enumerate(summarized_result['structured_context']):
+            with st.expander(f"File: {item['file_name']}, Page: {item['page_number']}"):
+             
+        # Add the index to the key to ensure uniqueness
+             if st.button(f"Go to Page {item['page_number']}", key=f"{item['file_name']}_{item['page_number']}_{index}"):
+                show_pdfs(filename=item['file_name'], pages=item['page_number'])
+
+        
 
 if __name__ == "__main__":
     main()

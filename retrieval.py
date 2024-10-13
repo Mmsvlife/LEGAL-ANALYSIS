@@ -39,7 +39,7 @@ def get_hybrid_retriever(documents, vector_store):
     # Increase weight for BM25 for date-related queries
     fusion_retriever = EnsembleRetriever(
         retrievers=[bm25_retriever, chroma_retriever],
-        weights=[0.3, 0.7] # Prioritize keyword-based retrieval for date-related questions
+        weights=[0.6, 0.4] # Prioritize keyword-based retrieval for date-related questions
     )
     return fusion_retriever
 
