@@ -62,14 +62,15 @@ def extract_case_metadata(documents):
 
 def main():
     # Load documents and vector store
-    document_path = 'docs/law-data/case2'  # Path to documents
-    vector_store = load_or_create_vector_store(document_path)
-    # Extract case metadata like date and parties
-    # Load and preprocess documents
+    document_path = 'docs\law-data\case3'
     if document_path.endswith('.md'):
         documents = load_documents_from_markdown(document_path)
     else:
-        documents = load_documents_from_directory(document_path)
+        documents = load_documents_from_directory(document_path)  # Path to documents
+    vector_store = load_or_create_vector_store(documents)
+    # Extract case metadata like date and parties
+    # Load and preprocess documents
+    
     case_metadata = extract_case_metadata(documents)
     logger.info(f"Case Metadata: {case_metadata}")
     # User interaction loop

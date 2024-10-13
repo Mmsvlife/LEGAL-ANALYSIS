@@ -113,7 +113,8 @@ def qa_prompt():
         You are a legal assistant. Answer the following legal question based on the provided context. 
         If the question is asking for a specific date (like when the case was filed, heard, or decided), provide only the relevant date.
         If the answer is not in the context, respond with "I don't know."
-
+        Make sure your answers and well formatted clean and correct 
+        Think in step by step manner 
         Question:
         {user_question}
 

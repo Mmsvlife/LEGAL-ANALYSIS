@@ -33,14 +33,14 @@ def main():
 
         if choice == '1':
             question = input("Enter your legal question: ")
-            refined_question = refine_question(question)
-            logger.info(f"Refined question: {refined_question}")
-            result = answer_question(refined_question, documents, vector_store)
+            # refined_question = refine_question(question)
+            # logger.info(f"Refined question: {refined_question}")
+            result = answer_question(question, documents, vector_store)
             print("\n--- Answer ---")
             print(result['answer'])
             print("\n--- Sources ---")
-            for item in result['structured_context']:
-                print(f"File: {item['file_name']}, Page: {item['page_number']}")
+            # for item in result['structured_context']:
+            #     print(f"File: {item['file_name']}, Page: {item['page_number']}")
 
         elif choice == '2':
             question = input("Enter your request for case summarization: ")

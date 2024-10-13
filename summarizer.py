@@ -21,7 +21,7 @@ def invoke_llm(prompt):
         return "Error in generating response from LLM."
 
 # Function to truncate context if too long
-def truncate_context(context, max_tokens=2000):
+def truncate_context(context, max_tokens=10000):
     """Truncate context to fit within a specific token limit."""
     words = context.split()
     if len(words) > max_tokens:
