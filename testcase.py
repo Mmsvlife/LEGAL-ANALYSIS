@@ -121,71 +121,69 @@ def main():
 
 
 
+def main():
+    document_path = 'docs/law-data/case2'  # Specify path (Markdown or PDF)
 
+    # Load and preprocess documents
+    if document_path.endswith('.md'):
+        documents = load_documents_from_markdown(document_path)
+    else:
+        documents = load_documents_from_directory(document_path)
 
-# def main():
-#     document_path = 'docs/law-data/case2'  # Specify path (Markdown or PDF)
+    # Extract case metadata like date and parties
+    case_metadata = extract_case_metadata(documents)
+    logger.info(f"Case Metadata: {case_metadata}")
+    # exit()
 
-#     # Load and preprocess documents
-#     if document_path.endswith('.md'):
-#         documents = load_documents_from_markdown(document_path)
-#     else:
-#         documents = load_documents_from_directory(document_path)
+    # Load or create vector store
+    vector_store = load_or_create_vector_store(documents)
 
-#     # Extract case metadata like date and parties
-#     case_metadata = extract_case_metadata(documents)
-#     logger.info(f"Case Metadata: {case_metadata}")
-#     # exit()
+    # User interaction loop
+    while True:
+        print("\n--- Legal Case Analysis Tool ---")
+        print("Select an option:")
+        print("1. Ask a question (Q&A)")
+        print("2. Summarize a case")
+        print("3. Exit")
+        choice = input("Enter your choice (1/2/3): ")
 
-#     # Load or create vector store
-#     vector_store = load_or_create_vector_store(documents)
-
-#     # User interaction loop
-#     while True:
-#         print("\n--- Legal Case Analysis Tool ---")
-#         print("Select an option:")
-#         print("1. Ask a question (Q&A)")
-#         print("2. Summarize a case")
-#         print("3. Exit")
-#         choice = input("Enter your choice (1/2/3): ")
-
-#         if choice == '1':
-#             question = input("Enter your legal question: ")
-#             refined_question = refine_question(question)
-#             logger.info(f"Refined question: {refined_question}")
-#             result = answer_question(refined_question, documents, vector_store)
+        if choice == '1':
+            question = input("Enter your legal question: ")
+            refined_question = refine_question(question)
+            logger.info(f"Refined question: {refined_question}")
+            result = answer_question(refined_question, documents, vector_store)
             
-#             print("\n--- Answer ---")
-#             print(result['answer'])
-#             print("\n--- Sources ---")
-#             for item in result['structured_context']:
-#                 print(f"File: {item['file_name']}, Page: {item['page_number']}")
-#             print("\n--- Additional Info ---")
-#             print(f"Case Metadata: {case_metadata}")
+            print("\n--- Answer ---")
+            print(result['answer'])
+            print("\n--- Sources ---")
+            for item in result['structured_context']:
+                print(f"File: {item['file_name']}, Page: {item['page_number']}")
+            print("\n--- Additional Info ---")
+            print(f"Case Metadata: {case_metadata}")
 
-#         elif choice == '2':
-#             question = "Generate the complete summary of the document and provide a concise summary of the case"
-#             refined_question = refine_question(question)
-#             logger.info(f"Refined question: {refined_question}")
-#             result = summarize_case(refined_question, documents, vector_store)
+        elif choice == '2':
+            question = "Generate the complete summary of the document and provide a concise summary of the case"
+            refined_question = refine_question(question)
+            logger.info(f"Refined question: {refined_question}")
+            result = summarize_case(refined_question, documents, vector_store)
 
-#             print("\n--- Initial Findings ---")
-#             print(result['initial_findings'])
-#             print("\n--- Follow-up Information ---")
-#             print(result['followup_info'])
-#             print("\n--- Final Summary ---")
-#             print(result['final_summary'])
-#             print("\n--- Sources ---")
-#             for item in result['structured_context']:
-#                 print(f"File: {item['file_name']}, Page: {item['page_number']}")
-#             print("\n--- Additional Info ---")
-#             print(f"Case Metadata: {case_metadata}")
+            print("\n--- Initial Findings ---")
+            print(result['initial_findings'])
+            print("\n--- Follow-up Information ---")
+            print(result['followup_info'])
+            print("\n--- Final Summary ---")
+            print(result['final_summary'])
+            print("\n--- Sources ---")
+            for item in result['structured_context']:
+                print(f"File: {item['file_name']}, Page: {item['page_number']}")
+            print("\n--- Additional Info ---")
+            print(f"Case Metadata: {case_metadata}")
 
-#         elif choice == '3':
-#             print("Exiting...")
-#             break
-#         else:
-#             print("Invalid choice. Please select 1, 2, or 3.")
+        elif choice == '3':
+            print("Exiting...")
+            break
+        else:
+            print("Invalid choice. Please select 1, 2, or 3.")
 
 if __name__ == "__main__":
     main()
