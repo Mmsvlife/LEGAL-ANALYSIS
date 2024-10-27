@@ -14,7 +14,20 @@ from config import COLLECTION_NAME, PERSIST_DIRECTORY
 app = Flask(__name__)
 CORS(app)  # This allows cross-origin requests, which is useful if your React app is hosted separately
 
+'''
+Request:
+{
+    "document_path": "",
+    "user_id": ""
+}
 
+Response:
+{
+    "initial_findings": "",
+    "followup_info": "",
+    "final_summary": ""
+}
+'''
 @app.route('/api/summary/generate', methods=['POST'])
 def process_data():
     # Get the JSON data from the request body
